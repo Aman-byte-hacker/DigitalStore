@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block style %}
+{% endblock %}
+{% block script %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    window.onload = function(){
+        var options = {
+            "key": "rzp_test_LtPqXSjfBHD1BO",
+            "amount" : "{{product.price}}",
+            "currency": "INR",
+            "name" : "{{product.name}}",
+            "description": "{{product.description}}",
+            "image": "https://lh3.googleusercontent.com/ogw/ADGmqu-KLlZT9DLEo0U3lo6VGaQ-NRHM_ulIKWUh0zU=s32-c-mo",
+            "order_id": "{{order.id}}",
+            "callback_url": "http://localhost:8000/payment/verify",
+            "theme": {
+                "color": "#3399cc"
+            },
+            "prefill": {
+                "name": "{{request.user}}",
+                "email": "{{request.user.email}}"
+            },
+        }
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+    
+</script>    
+{% endblock %}
+{% block content %}
+    <p>{{product}}</p>
+    <p>{{order}}</p>
+    
+{% endblock %}

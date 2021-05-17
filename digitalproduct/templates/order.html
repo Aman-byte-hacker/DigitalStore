@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block style %}
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        {% for product in products %}
+            <table class="table mt-4 table-primary table-borderless table-stripped ">
+                <thead class="text-center text-success">
+                    <tr>
+                        <th>S No</th>
+                        <th>Username</th>
+                        <th>Product</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr>
+                        <td>{{product.id}}</td>
+                        <td>{{request.user}}</td>
+                        <td>{{product}}</td>
+                        <td><button class="btn btn-info"><a style="text-decoration: none;" href="{{product.product.file.url}}">Download</a></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+{% endblock %}

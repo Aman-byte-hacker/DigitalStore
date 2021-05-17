@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    .product_image{
+        width: 210px;
+        height: 270px;
+    }
+    .para{
+        height: 100px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid mt-2  ">
+        <div class="row">
+            <div class="col-3 mt-3">
+                <ul class="list-group">
+                    <li class="list-group-item"><a style="text-decoration:none;" href="/">All</a></li>
+                    {% for category in categories %}
+                        <li class="list-group-item"><a style="text-decoration: none;" href="/?category={{category.id}}">{{category.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            
+                                <div class="card my-3">
+                                    <div class="card-header text-center">
+                                        <img class="product_image" src="{{product.image.url}}" alt="image">
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{product.name}}</h6>
+                                        <div class="para">
+                                            <p class="card-text">{{product.description}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a href="/see/{{product.id}}"><button type="submit" class="btn btn-submit col-lg-12 btn-info">See More</button></a>
+                                    </div>
+                                </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

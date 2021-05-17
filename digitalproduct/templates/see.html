@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    .img_product{
+        width: 210px;
+        height: 270px;
+    }
+    body{
+        
+    }
+    
+</style>
+{% endblock %}
+{% block content %}
+    {% for product in products %}
+        <div class="row align-items-center">
+            <div class="col-6 text-center mt-5 align-self-center">
+                <img class="img_product display-4" src="{{product.image.url}}" alt="product_image">
+            </div>
+            <div class="col text-center mt-5 ">
+                <h5>{{product.name}}</h5>
+                <p>{{product.description}}</p>
+                <p>Price: {{product.price}}₹</p>
+                <form action="/payment/{{product.id}}" method="POST">
+                    {% csrf_token %}
+                    <label for="email">Email:</label><input required class="p-1" id="email" type="email" placeholder="Enter Your Email"  value={{request.user.email}}></p>
+                    <label for="phone">Mobile:</label><input required class="p-1" id="phone" type="text" placeholder="Enter Your MobileNumber"></p>
+                    {% if user.is_authenticated %}
+                        <a href="/payment/{{product.id}}"><button type="submit" class="btn btn-secondary col-lg-5">Checkout</button></a>
+                    {% else %}
+                        <p class=" text-danger">Register An Account First / Login First</p>
+                        <button disabled title="Register an Account" class="btn btn-secondary col-lg-5">Checkout</button>
+                    {% endif %} 
+                </form>
+                  
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
