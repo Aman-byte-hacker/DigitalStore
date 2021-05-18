@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Payment, Product,Category, Userproduct
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -57,7 +58,11 @@ def register(request):
 
 
 def order(request):
-    product = Userproduct.objects.all()
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None    
+    product = Userproduct.objects.filter(user=user)
     context={
         'products' : product
     }
