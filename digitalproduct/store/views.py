@@ -137,4 +137,4 @@ def paymentverify(request):
 
         user_product = Userproduct(user = payment.user,payment=payment,product=payment.product)
         user_product.save()
-        return redirect('/orders')
+        return HttpResponseRedirect('/orders')
